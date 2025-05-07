@@ -49,9 +49,11 @@ namespace Cube
         
         private void SpawnCube()
         {
-            var newCube = Instantiate(_cubePrefab, transform.position, Quaternion.identity);
+            var newCube = Instantiate(_cubePrefab, transform.position, Quaternion.identity, transform);
+
             newCube.SetMainCube(true);
-            
+            newCube.SetCubeView();
+
             SpawnNewCube?.Invoke(newCube);
         }
     }
