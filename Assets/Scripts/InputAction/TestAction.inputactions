@@ -1,0 +1,76 @@
+{
+    "name": "TestAction",
+    "maps": [
+        {
+            "name": "TestMap",
+            "id": "cf574d47-5d0a-4e8e-b614-20bcbd6ed6fc",
+            "actions": [
+                {
+                    "name": "TestActionPos",
+                    "type": "Value",
+                    "id": "488c9faa-05ee-4d9a-853a-c0e67f14ccc7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TestActionClick",
+                    "type": "Button",
+                    "id": "ccc844d9-4401-4807-82f4-5e62a8987138",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "463bd8fb-a9b8-420d-9519-bd5cb7dee558",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestActionPos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93c08e0d-41a5-4cda-a07a-4479fa169f9d",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestActionPos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a24d554-8317-441d-9a8f-5222dccfdd56",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestActionClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c715b73-383f-4bb8-a1bd-6a93d7314a9a",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestActionClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
