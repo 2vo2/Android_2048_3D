@@ -10,14 +10,14 @@ namespace Cube.SO
         [SerializeField] private List<Color> _colors;
         [SerializeField] private List<int> _chances;
 
-        public Color SetCubeColor(int cubeNumber)
+        public Color CubeColor(int cubeNumber)
         {
             var colorIndex = (int)Mathf.Log(cubeNumber, 2) - 1;
             
             return _colors[colorIndex];
         }
         
-        public int SetCubeNumber()
+        public int CubeNumber()
         {
             var roll = Random.Range(0, 100);
             var cumulative = 0;

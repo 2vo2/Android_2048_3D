@@ -2,6 +2,7 @@ using Handlers;
 using UnityEngine;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 
 namespace Cube
 {
@@ -44,6 +45,8 @@ namespace Cube
                 yield return new WaitForSeconds(delay);
             }
 
+            cube.AddComponent<CubeMerger>();
+            
             SpawnCube();
         }
         
