@@ -37,11 +37,15 @@ namespace Handlers
 
         private void OnPressStarted()
         {
+            if (_cubeUnit == null) return;
+            
             _inputHandler.PerformedPointer += OnPerformedPointer;
         }
 
         private void OnPerformedPointer()
         {
+            if (_cubeUnit == null) return;
+            
             _pointerPosition = _inputHandler.GetWorldPointerPosition(_cubeUnit.transform);
             
             if (_cubeUnit.IsMainCube)
@@ -52,6 +56,8 @@ namespace Handlers
         
         private void OnPressCanceled()
         {
+            if (_cubeUnit == null) return;
+            
             if (_cubeUnit.IsMainCube)
             {
                 ThrowCube();
