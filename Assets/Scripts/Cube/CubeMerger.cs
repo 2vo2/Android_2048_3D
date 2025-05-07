@@ -1,4 +1,5 @@
 using System;
+using UI;
 using UnityEngine;
 
 namespace Cube
@@ -18,9 +19,12 @@ namespace Cube
                 cubeUnit.CubeNumber == _cubeUnit.CubeNumber)
             {
                 _cubeUnit.gameObject.SetActive(false);
+
+                var mergeValue = cubeUnit.CubeNumber / 2;
+                Score.Instance.AddScore(mergeValue);
                 
                 cubeUnit.SetCubeView(cubeUnit.CubeNumber * 2);
-                
+
                 cubeUnit.Rigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
             }
         }
