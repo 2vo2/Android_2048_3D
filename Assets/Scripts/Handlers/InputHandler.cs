@@ -1,21 +1,46 @@
+using System;
 using UnityEngine;
 
 namespace Handlers
 {
     public class InputHandler : MonoBehaviour
     {
-        private Vector3 RawMousePosition(Transform cubeTransform)
+        private TouchScreenAction _touchScreenAction;
+
+        public event Action PressStarted;
+        public event Action PerformedPointer;
+        public event Action PressCanceled;
+
+        private void Awake()
         {
-            var mousePosition = Input.mousePosition;
-            var depth = Vector3.Distance(Camera.main.transform.position, cubeTransform.position);
-            mousePosition.z = depth;
-            
-            return mousePosition;
+            Init();
         }
 
-        public Vector3 PreparedMousePosition(Transform cubeTransform)
+        private void OnEnable()
         {
-            return Camera.main.ScreenToWorldPoint(RawMousePosition(cubeTransform));
+            _touchScreenAction.TouchScreen.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _touchScreenAction.TouchScreen.Disable();
+        }
+
+        private void Init()
+        {
+            _touchScreenAction = new TouchScreenAction();
+
+            _touchScreenAction.TouchScreen.PressScreen.started += ctx => PressStarted?.Invoke();
+            _touchScreenAction.TouchScreen.TouchPosition.performed += ctx => PerformedPointer?.Invoke();
+            _touchScreenAction.TouchScreen.PressScreen.canceled += ctx => PressCanceled?.Invoke();
+        }
+        
+        public Vector3 GetWorldPointerPosition(Transform referenceTransform)
+        {
+            var depth = Vector3.Distance(Camera.main.transform.position, referenceTransform.position);
+            var screenPos = _touchScreenAction.TouchScreen.TouchPosition.ReadValue<Vector2>();
+            
+            return Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
         }
     }
 }
