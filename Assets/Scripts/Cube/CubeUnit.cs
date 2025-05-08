@@ -10,6 +10,7 @@ namespace Cube
     {
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private CubeMerger _cubeMerger;
+        [SerializeField] private CubeSound _cubeSound;
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private GameCubeSO _gameCubeData;
         [SerializeField] private List<TMP_Text> _texts;
@@ -19,6 +20,7 @@ namespace Cube
         
         public Rigidbody Rigidbody => _rigidbody;
         public CubeMerger CubeMerger => _cubeMerger;
+        public CubeSound CubeSound => _cubeSound;
         public bool IsMainCube => _isMainCube;
         public int CubeNumber => _cubeNumber;
 
