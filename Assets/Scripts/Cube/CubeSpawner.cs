@@ -3,7 +3,6 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace Cube
 {
@@ -30,6 +29,18 @@ namespace Cube
         private void OnDisable()
         {
             _cubeThrower.Throw -= OnCubeThrow;
+        }
+
+        private void SpawnCube()
+        {
+            var newCube = Instantiate(_cubePrefab, _spawnPoint.position, Quaternion.identity, transform);
+
+            newCube.SetMainCube(true);
+            newCube.CubeViewer.SetCubeView();
+
+            _cubeUnits.Add(newCube);
+        
+            SpawnNewCube?.Invoke(newCube);
         }
 
         private void OnCubeThrow(CubeUnit thrownCube)
@@ -94,18 +105,6 @@ namespace Cube
             cubeUnit.Rigidbody.angularVelocity = Vector3.zero;
             cubeUnit.transform.position = _spawnPoint.position;
             cubeUnit.transform.rotation = Quaternion.identity;
-        }
-
-        private void SpawnCube()
-        {
-            var newCube = Instantiate(_cubePrefab, _spawnPoint.position, Quaternion.identity, transform);
-
-            newCube.SetMainCube(true);
-            newCube.CubeViewer.SetCubeView();
-
-            _cubeUnits.Add(newCube);
-        
-            SpawnNewCube?.Invoke(newCube);
         }
     }
 }
