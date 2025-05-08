@@ -7,11 +7,15 @@ namespace Cube
     public class CubeMerger : MonoBehaviour
     {
         [SerializeField] private CubeUnit _cubeUnit;
+        [SerializeField] private float _minImpulseValueForMerge;
         
         private void OnCollisionEnter(Collision other)
         {
+            var impulseValue = _cubeUnit.Rigidbody.linearVelocity.sqrMagnitude;
+            
             if (other.gameObject.TryGetComponent(out CubeUnit cubeUnit) &&
-                cubeUnit.CubeNumber == _cubeUnit.CubeNumber)
+                cubeUnit.CubeNumber == _cubeUnit.CubeNumber &&
+                impulseValue > _minImpulseValueForMerge)
             {
                 cubeUnit.gameObject.SetActive(false);
                 cubeUnit.CubeMerger.enabled = false;
