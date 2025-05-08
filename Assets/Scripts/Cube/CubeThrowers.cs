@@ -11,52 +11,64 @@ namespace Handlers
         [SerializeField] private float _throwForce;
 
         private CubeUnit _cubeUnit;
-        private Vector3 _mousePosition;
+        private Vector3 _pointerPosition;
 
         public event Action<CubeUnit> Throw;
+        
 
         private void OnEnable()
         {
             _cubeSpawner.SpawnNewCube += OnSpawnNewCube;
+            _inputHandler.PressStarted += OnPressStarted;
+            _inputHandler.PressCanceled += OnPressCanceled;
         }
 
         private void OnDisable()
         {
             _cubeSpawner.SpawnNewCube -= OnSpawnNewCube;
+            _inputHandler.PressStarted -= OnPressStarted;
+            _inputHandler.PressCanceled -= OnPressCanceled;
         }
 
         private void OnSpawnNewCube(CubeUnit newCube)
         {
             _cubeUnit = newCube;
         }
-        
-        private void Update()
-        {
-            if (!_cubeUnit) return;
-            
-            MousePosition();
 
-            if (_cubeUnit.IsMainCube)
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    MoveCube();
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    ThrowCube();
-                }
-            }
+        private void OnPressStarted()
+        {
+            if (_cubeUnit == null) return;
+            
+            _inputHandler.PerformedPointer += OnPerformedPointer;
         }
 
-        private void MousePosition()
+        private void OnPerformedPointer()
         {
-            _mousePosition = _inputHandler.PreparedMousePosition(_cubeUnit.transform);;
+            if (_cubeUnit == null) return;
+            
+            _pointerPosition = _inputHandler.GetWorldPointerPosition(_cubeUnit.transform);
+            
+            if (_cubeUnit.IsMainCube)
+            {
+                MoveCube();
+            }
+        }
+        
+        private void OnPressCanceled()
+        {
+            if (_cubeUnit == null) return;
+            
+            if (_cubeUnit.IsMainCube)
+            {
+                ThrowCube();
+            }
+            
+            _inputHandler.PerformedPointer -= OnPerformedPointer;
         }
         
         private void MoveCube()
         {
-            var clampMousePositionX = Mathf.Clamp(_mousePosition.x, -4f, 4f);
+            var clampMousePositionX = Mathf.Clamp(_pointerPosition.x, -4f, 4f);
             var newCubePosition = new Vector3(clampMousePositionX, _cubeUnit.transform.position.z, _cubeUnit.transform.position.z);
                 
             _cubeUnit.transform.position = newCubePosition;
@@ -65,7 +77,7 @@ namespace Handlers
         private void ThrowCube()
         {
             var mousedDirectionZ = _cubeUnit.transform.position.z -
-                                   _mousePosition.z;
+                                   _pointerPosition.z;
             
             if (mousedDirectionZ >= 0.5f)
             {
