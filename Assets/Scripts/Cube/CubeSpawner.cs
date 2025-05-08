@@ -11,6 +11,7 @@ namespace Cube
     {
         [SerializeField] private CubeThrowers _cubeThrower;
         [SerializeField] private CubeUnit _cubePrefab;
+        [SerializeField] private Transform _spawnPoint;
 
         private List<CubeUnit> _cubeUnits = new List<CubeUnit>();
         
@@ -61,18 +62,6 @@ namespace Cube
             
             TakeCubeFromPool();
         }
-        
-        private void SpawnCube()
-        {
-            var newCube = Instantiate(_cubePrefab, transform.position, Quaternion.identity, transform);
-
-            newCube.SetMainCube(true);
-            newCube.CubeViewer.SetCubeView();
-
-            _cubeUnits.Add(newCube);
-        
-            SpawnNewCube?.Invoke(newCube);
-        }
 
         private void TakeCubeFromPool()
         {
@@ -103,8 +92,20 @@ namespace Cube
         {
             cubeUnit.Rigidbody.linearVelocity = Vector3.zero;
             cubeUnit.Rigidbody.angularVelocity = Vector3.zero;
-            cubeUnit.transform.position = Vector3.zero;
+            cubeUnit.transform.position = _spawnPoint.position;
             cubeUnit.transform.rotation = Quaternion.identity;
+        }
+
+        private void SpawnCube()
+        {
+            var newCube = Instantiate(_cubePrefab, _spawnPoint.position, Quaternion.identity, transform);
+
+            newCube.SetMainCube(true);
+            newCube.CubeViewer.SetCubeView();
+
+            _cubeUnits.Add(newCube);
+        
+            SpawnNewCube?.Invoke(newCube);
         }
     }
 }
