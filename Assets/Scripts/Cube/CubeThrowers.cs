@@ -68,21 +68,21 @@ namespace Handlers
         
         private void MoveCube()
         {
-            var clampMousePositionX = Mathf.Clamp(_pointerPosition.x, -4f, 4f);
-            var newCubePosition = new Vector3(clampMousePositionX, _cubeUnit.transform.position.z, _cubeUnit.transform.position.z);
+            var clampPointerPositionX = Mathf.Clamp(_pointerPosition.x, -4f, 4f);
+            var newCubePosition = new Vector3(clampPointerPositionX, _cubeUnit.transform.position.z, _cubeUnit.transform.position.z);
                 
             _cubeUnit.transform.position = newCubePosition;
         }
 
         private void ThrowCube()
         {
-            var mousedDirectionZ = _cubeUnit.transform.position.z -
+            var throwDirectionZ = _cubeUnit.transform.position.z -
                                    _pointerPosition.z;
             
-            if (mousedDirectionZ >= 0.5f)
+            if (throwDirectionZ >= 0.5f)
             {
-                var throwDirection = new Vector3(0f, 0f, mousedDirectionZ);
-                _cubeUnit.Rigidbody.linearVelocity = throwDirection * _throwForce;
+                var throwVector = new Vector3(0f, 0f, throwDirectionZ);
+                _cubeUnit.Rigidbody.linearVelocity = throwVector * _throwForce;
                 
                 Throw?.Invoke(_cubeUnit);
                 
