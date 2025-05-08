@@ -27,7 +27,7 @@ namespace Cube
                 
                 Merge?.Invoke();
                 
-                _cubeUnit.SetCubeView(_cubeUnit.CubeNumber * 2);
+                _cubeUnit.CubeViewer.SetCubeView(_cubeUnit.CubeNumber * 2);
 
                 _cubeUnit.Rigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
             }

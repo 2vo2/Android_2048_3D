@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &689562613572858639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299850478521992256}
+  - component: {fileID: 604460865310240408}
+  m_Layer: 0
+  m_Name: CubeViewer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1299850478521992256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689562613572858639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1983320890072921067}
+  m_Father: {fileID: 24935414560032282}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &604460865310240408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689562613572858639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602dac951e1c494e81725b3c689ea1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameCubeData: {fileID: 11400000, guid: 03b7f05ad2721a14ea7a8595298e2489, type: 2}
+  _cubeUnit: {fileID: 6743169036341600590}
+  _meshRenderer: {fileID: 8465409348663621781}
+  _texts:
+  - {fileID: 911016927476088099}
+  - {fileID: 5537634310415093985}
+  - {fileID: 5187054256423470335}
+  - {fileID: 2303641274010553765}
+  - {fileID: 5445727067471395647}
+  - {fileID: 111233764070626631}
 --- !u!1 &2343251996103660008
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,14 +378,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3097739013452159764}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2773628573622284401}
   - {fileID: 1631158768110112443}
-  m_Father: {fileID: 24935414560032282}
+  m_Father: {fileID: 1299850478521992256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3507489529090550471
 GameObject:
@@ -1213,8 +1268,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1983320890072921067}
   - {fileID: 8389384202123480692}
+  - {fileID: 1299850478521992256}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6743169036341600590
@@ -1231,16 +1286,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 4967925165337698420}
   _cubeMerger: {fileID: 7442699644443542613}
+  _cubeViewer: {fileID: 604460865310240408}
   _cubeSound: {fileID: 2971575457464080016}
-  _meshRenderer: {fileID: 8465409348663621781}
-  _gameCubeData: {fileID: 11400000, guid: 03b7f05ad2721a14ea7a8595298e2489, type: 2}
-  _texts:
-  - {fileID: 911016927476088099}
-  - {fileID: 5537634310415093985}
-  - {fileID: 5187054256423470335}
-  - {fileID: 2303641274010553765}
-  - {fileID: 5445727067471395647}
-  - {fileID: 111233764070626631}
 --- !u!114 &7442699644443542613
 MonoBehaviour:
   m_ObjectHideFlags: 0

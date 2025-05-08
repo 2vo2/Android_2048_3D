@@ -67,7 +67,7 @@ namespace Cube
             var newCube = Instantiate(_cubePrefab, transform.position, Quaternion.identity, transform);
 
             newCube.SetMainCube(true);
-            newCube.SetCubeView();
+            newCube.CubeViewer.SetCubeView();
 
             _cubeUnits.Add(newCube);
         
@@ -88,7 +88,7 @@ namespace Cube
                     cubeUnit.CubeMerger.enabled = false;  
                     
                     cubeUnit.SetMainCube(true);
-                    cubeUnit.SetCubeView();
+                    cubeUnit.CubeViewer.SetCubeView();
                     
                     SpawnNewCube?.Invoke(cubeUnit);
                     
