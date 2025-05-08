@@ -2,6 +2,7 @@ using Handlers;
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 
 namespace Cube
@@ -11,6 +12,8 @@ namespace Cube
         [SerializeField] private CubeThrowers _cubeThrower;
         [SerializeField] private CubeUnit _cubePrefab;
 
+        private List<CubeUnit> _cubeUnits = new List<CubeUnit>();
+        
         public event Action<CubeUnit> SpawnNewCube;
 
         private void Start()
@@ -37,17 +40,26 @@ namespace Cube
         {
             const float threshold = 0.1f;
             const float delay = 0.1f;
+            const float timeout = 3f;
 
             var cubeRigidbody = cube.Rigidbody;
+            var timer = 0f;
             
             while (cubeRigidbody != null && cubeRigidbody.linearVelocity.sqrMagnitude > threshold)
             {
                 yield return new WaitForSeconds(delay);
+                
+                timer += delay;
+
+                if (timer >= timeout)
+                {
+                    break;
+                }
             }
 
-            cube.AddComponent<CubeMerger>();
+            cube.CubeMerger.enabled = true;
             
-            SpawnCube();
+            TakeCubeFromPool();
         }
         
         private void SpawnCube()
@@ -57,7 +69,42 @@ namespace Cube
             newCube.SetMainCube(true);
             newCube.SetCubeView();
 
+            _cubeUnits.Add(newCube);
+        
             SpawnNewCube?.Invoke(newCube);
+        }
+
+        private void TakeCubeFromPool()
+        {
+            for (int i = 0; i < _cubeUnits.Count; i++)
+            { 
+                var cubeUnit = _cubeUnits[i];
+                
+                if (!_cubeUnits[i].gameObject.activeSelf)
+                {
+                    ResetCube(cubeUnit);
+
+                    cubeUnit.gameObject.SetActive(true);
+                    cubeUnit.CubeMerger.enabled = false;  
+                    
+                    cubeUnit.SetMainCube(true);
+                    cubeUnit.SetCubeView();
+                    
+                    SpawnNewCube?.Invoke(cubeUnit);
+                    
+                    return;
+                }
+            }
+            
+            SpawnCube();
+        }
+
+        private void ResetCube(CubeUnit cubeUnit)
+        {
+            cubeUnit.Rigidbody.linearVelocity = Vector3.zero;
+            cubeUnit.Rigidbody.angularVelocity = Vector3.zero;
+            cubeUnit.transform.position = Vector3.zero;
+            cubeUnit.transform.rotation = Quaternion.identity;
         }
     }
 }

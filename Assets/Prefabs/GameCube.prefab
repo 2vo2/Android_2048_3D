@@ -1046,6 +1046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 24935414560032282}
   - component: {fileID: 6743169036341600590}
+  - component: {fileID: 7442699644443542613}
   - component: {fileID: 4967925165337698420}
   - component: {fileID: 5173734358083971215}
   m_Layer: 0
@@ -1084,6 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 4967925165337698420}
+  _cubeMerger: {fileID: 7442699644443542613}
   _meshRenderer: {fileID: 8465409348663621781}
   _gameCubeData: {fileID: 11400000, guid: 03b7f05ad2721a14ea7a8595298e2489, type: 2}
   _texts:
@@ -1093,6 +1095,19 @@ MonoBehaviour:
   - {fileID: 2303641274010553765}
   - {fileID: 5445727067471395647}
   - {fileID: 111233764070626631}
+--- !u!114 &7442699644443542613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507657524010303595}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf2a1ac8c5642928672e008b9e9c2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cubeUnit: {fileID: 6743169036341600590}
 --- !u!54 &4967925165337698420
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ namespace Cube
     public class CubeUnit : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private CubeMerger _cubeMerger;
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private GameCubeSO _gameCubeData;
         [SerializeField] private List<TMP_Text> _texts;
@@ -17,6 +18,7 @@ namespace Cube
         private int _cubeNumber;
         
         public Rigidbody Rigidbody => _rigidbody;
+        public CubeMerger CubeMerger => _cubeMerger;
         public bool IsMainCube => _isMainCube;
         public int CubeNumber => _cubeNumber;
 
