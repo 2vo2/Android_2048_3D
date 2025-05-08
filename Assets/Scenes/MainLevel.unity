@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 1923706891}
   _cubeSpawner: {fileID: 226328194}
-  _throwForce: 20
+  _throwForce: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
