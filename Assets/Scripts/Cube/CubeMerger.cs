@@ -9,7 +9,7 @@ namespace Cube
         [SerializeField] private CubeUnit _cubeUnit;
         [SerializeField] private float _minImpulseValueForMerge;
         
-        public event Action Merge;
+        public event Action<int> Merge;
         
         private void OnCollisionEnter(Collision other)
         {
@@ -25,9 +25,7 @@ namespace Cube
                 var mergeValue = _cubeUnit.CubeNumber / 2;
                 Score.Instance.AddScore(mergeValue);
                 
-                Merge?.Invoke();
-                
-                _cubeUnit.CubeViewer.SetCubeView(_cubeUnit.CubeNumber * 2);
+                Merge?.Invoke(_cubeUnit.CubeNumber * 2);
 
                 _cubeUnit.Rigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
             }

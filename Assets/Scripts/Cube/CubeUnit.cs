@@ -19,7 +19,6 @@ namespace Cube
         public Rigidbody Rigidbody => _rigidbody;
         public CubeMerger CubeMerger => _cubeMerger;
         public CubeViewer CubeViewer => _cubeViewer;
-        public CubeSound CubeSound => _cubeSound;
         public bool IsMainCube => _isMainCube;
         public int CubeNumber => _cubeNumber;
         

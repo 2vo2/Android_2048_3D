@@ -18,7 +18,7 @@ namespace Cube.SO
             _cubeUnit.CubeMerger.Merge -= PlaySound;
         }
 
-        private void PlaySound()
+        private void PlaySound(int value)
         {
             _audioSource.Play();
         }
