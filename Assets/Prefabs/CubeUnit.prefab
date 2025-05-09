@@ -303,7 +303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602dac951e1c494e81725b3c689ea1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameCubeData: {fileID: 11400000, guid: 03b7f05ad2721a14ea7a8595298e2489, type: 2}
   _cubeUnit: {fileID: 6743169036341600590}
   _meshRenderer: {fileID: 8465409348663621781}
   _texts:
@@ -1448,6 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76dd621199b6470f969a45e86ea89595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cubeUnitData: {fileID: 11400000, guid: 03b7f05ad2721a14ea7a8595298e2489, type: 2}
   _rigidbody: {fileID: 4967925165337698420}
   _cubeMerger: {fileID: 7442699644443542613}
   _cubeViewer: {fileID: 604460865310240408}

@@ -35,6 +35,7 @@ namespace Cube
         {
             var newCube = Instantiate(_cubePrefab, _spawnPoint.position, Quaternion.identity, transform);
 
+            newCube.gameObject.layer = newCube.CubeUnitData.MainCubeLayer;
             newCube.SetMainCube(true);
             newCube.CubeViewer.SetCubeView();
 

@@ -5,11 +5,16 @@ using Random = UnityEngine.Random;
 namespace Cube.SO
 {
     [CreateAssetMenu(fileName = "New GameCube", menuName = "GameCube", order = 0)]
-    public class GameCubeSO : ScriptableObject
+    public class CubeUnitSo : ScriptableObject
     {
+        [SerializeField] private int _mainCubeLayer = 6;
+        [SerializeField] private int _cubeOnBoardLayer = 7;
         [SerializeField] private List<Color> _colors;
         [SerializeField] private List<int> _chances;
-
+        
+        public int MainCubeLayer => _mainCubeLayer;
+        public int CubeOnBoardLayer => _cubeOnBoardLayer;
+        
         public Color CubeColor(int cubeNumber)
         {
             var colorIndex = (int)Mathf.Log(cubeNumber, 2) - 1;

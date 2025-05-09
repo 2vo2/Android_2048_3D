@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Cube.SO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Cube
 {
     public class CubeViewer : MonoBehaviour
     {
-        [SerializeField] private GameCubeSO _gameCubeData;
         [SerializeField] private CubeUnit _cubeUnit;
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private List<TMP_Text> _texts;
@@ -32,20 +32,20 @@ namespace Cube
                 tmpText.text = cubeNumber.ToString();
             }
             
-            var cubeColor = _gameCubeData.CubeColor(cubeNumber);
+            var cubeColor = _cubeUnit.CubeUnitData.CubeColor(cubeNumber);
             _meshRenderer.material.color = cubeColor;
         }
 
         public void SetCubeView()
         {
-            _cubeUnit.SetCubeNumber(_gameCubeData.CubeNumber());
+            _cubeUnit.SetCubeNumber(_cubeUnit.CubeUnitData.CubeNumber());
 
             foreach (var tmpText in _texts)
             {
                 tmpText.text = _cubeUnit.CubeNumber.ToString();
             }
             
-            var cubeColor = _gameCubeData.CubeColor(_cubeUnit.CubeNumber);
+            var cubeColor = _cubeUnit.CubeUnitData.CubeColor(_cubeUnit.CubeNumber);
             _meshRenderer.material.color = cubeColor;
         }
     }

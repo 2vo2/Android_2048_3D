@@ -24,6 +24,7 @@ namespace Handlers
         
         private void ThrowCube()
         {
+            CubeUnit.gameObject.layer = CubeUnit.CubeUnitData.CubeOnBoardLayer;
             CubeUnit.Rigidbody.linearVelocity = Vector3.forward * _throwForce;
             Throw?.Invoke(CubeUnit);
 

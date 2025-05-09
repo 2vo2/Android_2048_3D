@@ -9,6 +9,7 @@ namespace Cube
     [RequireComponent(typeof(Rigidbody))]
     public class CubeUnit : MonoBehaviour
     {
+        [SerializeField] private CubeUnitSo _cubeUnitData;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private CubeMerger _cubeMerger;
         [SerializeField] private CubeViewer _cubeViewer;
@@ -17,6 +18,7 @@ namespace Cube
         private bool _isMainCube;
         private int _cubeNumber;
         
+        public CubeUnitSo CubeUnitData => _cubeUnitData;
         public Rigidbody Rigidbody => _rigidbody;
         public CubeMerger CubeMerger => _cubeMerger;
         public CubeViewer CubeViewer => _cubeViewer;
