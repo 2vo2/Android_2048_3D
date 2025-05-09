@@ -12,10 +12,10 @@ namespace General
         private float _timer;
         private Coroutine _gameOverCoroutine;
         
-        public event Action GameOver;
-        public event Action<float> TimeLeftChanged;
-        public event Action TimerStarted;
-        public event Action TimerStopped;
+        public event Action OnGameOver;
+        public event Action<float> OnTimeLeftChanged;
+        public event Action OnTimerStarted;
+        public event Action OnTimerStopped;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -25,7 +25,7 @@ namespace General
                 if (_gameOverCoroutine == null)
                 {
                     _gameOverCoroutine = StartCoroutine(GameOverTimer());
-                    TimerStarted?.Invoke();
+                    OnTimerStarted?.Invoke();
                 } 
             }
         }
@@ -40,8 +40,8 @@ namespace General
                     StopCoroutine(_gameOverCoroutine);
                     _gameOverCoroutine = null;
                     _timer = 0f;
-                    TimeLeftChanged?.Invoke(_timeToLeft);
-                    TimerStopped?.Invoke();
+                    OnTimeLeftChanged?.Invoke(_timeToLeft);
+                    OnTimerStopped?.Invoke();
                 }
             }
         }
@@ -50,13 +50,13 @@ namespace General
         {
             while (_timeToLeft > _timer)
             {
-                TimeLeftChanged?.Invoke(_timeToLeft - _timer);
+                OnTimeLeftChanged?.Invoke(_timeToLeft - _timer);
                 yield return new WaitForSeconds(1f);
                 _timer++;
             }
             
-            GameOver?.Invoke();
-            TimerStopped?.Invoke();
+            OnGameOver?.Invoke();
+            OnTimerStopped?.Invoke();
         }
     }
 }

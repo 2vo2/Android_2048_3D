@@ -1,4 +1,3 @@
-using Handlers;
 using UnityEngine;
 using System;
 using System.Collections;
@@ -14,7 +13,7 @@ namespace Cube
 
         private List<CubeUnit> _cubeUnits = new List<CubeUnit>();
         
-        public event Action<CubeUnit> SpawnNewCube;
+        public event Action<CubeUnit> OnNewCubeSpawned;
 
         private void Start()
         {
@@ -23,12 +22,12 @@ namespace Cube
 
         private void OnEnable()
         {
-            _cubeThrower.Throw += OnCubeThrow;
+            _cubeThrower.OnCubeThrowed += OnCubeThrowed;
         }
 
         private void OnDisable()
         {
-            _cubeThrower.Throw -= OnCubeThrow;
+            _cubeThrower.OnCubeThrowed -= OnCubeThrowed;
         }
 
         private void SpawnCube()
@@ -41,10 +40,10 @@ namespace Cube
 
             _cubeUnits.Add(newCube);
         
-            SpawnNewCube?.Invoke(newCube);
+            OnNewCubeSpawned?.Invoke(newCube);
         }
 
-        private void OnCubeThrow(CubeUnit thrownCube)
+        private void OnCubeThrowed(CubeUnit thrownCube)
         {
             StartCoroutine(WaitForCubeToStop(thrownCube));
         }
@@ -91,7 +90,7 @@ namespace Cube
                     cubeUnit.SetMainCube(true);
                     cubeUnit.CubeViewer.SetCubeView();
                     
-                    SpawnNewCube?.Invoke(cubeUnit);
+                    OnNewCubeSpawned?.Invoke(cubeUnit);
                     
                     return;
                 }

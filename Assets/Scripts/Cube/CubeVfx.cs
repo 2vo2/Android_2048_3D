@@ -10,24 +10,24 @@ namespace Cube
 
         private void OnEnable()
         {
-            _cubeUnit.CubeMerger.Merge += PlayMergeVfx;
-            _cubeUnit.CubeMerger.Hit += PlayHitVfx;
+            _cubeUnit.CubeMerger.OnCubeMerged += PlayVfxOnCubeMerged;
+            _cubeUnit.CubeMerger.OnCubeHitted += PlayVfxOnCubeHitted;
         }
 
         private void OnDisable()
         {
-            _cubeUnit.CubeMerger.Merge -= PlayMergeVfx;
-            _cubeUnit.CubeMerger.Hit -= PlayHitVfx;
+            _cubeUnit.CubeMerger.OnCubeMerged -= PlayVfxOnCubeMerged;
+            _cubeUnit.CubeMerger.OnCubeHitted -= PlayVfxOnCubeHitted;
         }
 
-        private void PlayMergeVfx(int value, Vector3 position)
+        private void PlayVfxOnCubeMerged(int value, Vector3 position)
         {
             _mergeSfx.transform.position = position;
             
             _mergeSfx.Play();
         }
 
-        private void PlayHitVfx(Vector3 position)
+        private void PlayVfxOnCubeHitted(Vector3 position)
         {
             _hitSfx.transform.position = position;
             

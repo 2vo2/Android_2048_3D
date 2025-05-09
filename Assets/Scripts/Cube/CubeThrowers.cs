@@ -1,14 +1,13 @@
 using System;
-using Cube;
 using UnityEngine;
 
-namespace Handlers
+namespace Cube
 {
     public class CubeThrowers : CubeHandler
     {
         [SerializeField] private float _throwForce;
 
-        public event Action<CubeUnit> Throw;
+        public event Action<CubeUnit> OnCubeThrowed;
 
         protected override void OnPressCanceled()
         {
@@ -26,7 +25,7 @@ namespace Handlers
         {
             CubeUnit.gameObject.layer = CubeUnit.CubeUnitData.CubeOnBoardLayer;
             CubeUnit.Rigidbody.linearVelocity = Vector3.forward * _throwForce;
-            Throw?.Invoke(CubeUnit);
+            OnCubeThrowed?.Invoke(CubeUnit);
 
             CubeUnit.SetMainCube(false);
             CubeUnit = null;

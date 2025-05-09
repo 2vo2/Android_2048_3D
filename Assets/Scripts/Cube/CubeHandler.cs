@@ -13,19 +13,19 @@ namespace Cube
 
         private void OnEnable()
         {
-            _cubeSpawner.SpawnNewCube += OnSpawnNewCube;
-            _inputHandler.PressStarted += OnPressStarted;
-            _inputHandler.PressCanceled += OnPressCanceled;
+            _cubeSpawner.OnNewCubeSpawned += OnNewCubeSpawned;
+            _inputHandler.OnPressStarted += OnPressStarted;
+            _inputHandler.OnPressCanceled += OnPressCanceled;
         }
 
         private void OnDisable()
         {
-            _cubeSpawner.SpawnNewCube -= OnSpawnNewCube;
-            _inputHandler.PressStarted -= OnPressStarted;
-            _inputHandler.PressCanceled -= OnPressCanceled;
+            _cubeSpawner.OnNewCubeSpawned -= OnNewCubeSpawned;
+            _inputHandler.OnPressStarted -= OnPressStarted;
+            _inputHandler.OnPressCanceled -= OnPressCanceled;
         }
 
-        private void OnSpawnNewCube(CubeUnit newCube)
+        private void OnNewCubeSpawned(CubeUnit newCube)
         {
             CubeUnit = newCube;
         }
@@ -34,7 +34,7 @@ namespace Cube
         {
             if (CubeUnit == null) return;
 
-            _inputHandler.PerformedPointer += OnPerformedPointer;
+            _inputHandler.OnPerformedPointer += OnPerformedPointer;
         }
 
         protected virtual void OnPerformedPointer()
@@ -46,7 +46,7 @@ namespace Cube
 
         protected virtual void OnPressCanceled()
         {
-            _inputHandler.PerformedPointer -= OnPerformedPointer;
+            _inputHandler.OnPerformedPointer -= OnPerformedPointer;
         }
     }
 }

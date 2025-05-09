@@ -9,18 +9,12 @@ namespace UI
         
         private void OnEnable()
         {
-            _uiButton.onClick.AddListener( () =>
-            {
-                OnButtonClick();
-            });
+            _uiButton.onClick.AddListener(OnButtonClick);
         }
 
         private void OnDisable()
         {
-            _uiButton.onClick.RemoveListener( () =>
-            {
-                OnButtonClick();
-            });
+            _uiButton.onClick.RemoveListener(OnButtonClick);
         }
 
         protected abstract void OnButtonClick();

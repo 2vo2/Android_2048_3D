@@ -15,18 +15,18 @@ namespace UI
 
         private void OnEnable()
         {
-            _gameOverChecker.GameOver += ShowScreen;
-            _gameOverChecker.TimeLeftChanged += UpdateTimer;
-            _gameOverChecker.TimerStarted += ShowTimer;
-            _gameOverChecker.TimerStopped += HideTimer;
+            _gameOverChecker.OnGameOver += ShowScreen;
+            _gameOverChecker.OnTimeLeftChanged += UpdateTimer;
+            _gameOverChecker.OnTimerStarted += ShowTimer;
+            _gameOverChecker.OnTimerStopped += HideTimer;
         }
 
         private void OnDisable()
         {
-            _gameOverChecker.GameOver -= ShowScreen;
-            _gameOverChecker.TimeLeftChanged -= UpdateTimer;
-            _gameOverChecker.TimerStarted -= ShowTimer;
-            _gameOverChecker.TimerStopped -= HideTimer;
+            _gameOverChecker.OnGameOver -= ShowScreen;
+            _gameOverChecker.OnTimeLeftChanged -= UpdateTimer;
+            _gameOverChecker.OnTimerStarted -= ShowTimer;
+            _gameOverChecker.OnTimerStopped -= HideTimer;
         }
 
         private void ShowScreen()

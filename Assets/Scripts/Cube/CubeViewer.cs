@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Cube.SO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Cube
 {
@@ -15,15 +12,15 @@ namespace Cube
 
         private void OnEnable()
         {
-            _cubeUnit.CubeMerger.Merge += SetCubeView;
+            _cubeUnit.CubeMerger.OnCubeMerged += SetMergedCubeView;
         }
 
         private void OnDisable()
         {
-            _cubeUnit.CubeMerger.Merge += SetCubeView;
+            _cubeUnit.CubeMerger.OnCubeMerged += SetMergedCubeView;
         }
 
-        private void SetCubeView(int cubeNumber, Vector3 position)
+        private void SetMergedCubeView(int cubeNumber, Vector3 position)
         {
             _cubeUnit.SetCubeNumber(cubeNumber);
             

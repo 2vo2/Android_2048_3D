@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Cube.SO
+namespace Cube
 {
     public class CubeSfx : MonoBehaviour
     {
@@ -12,22 +10,22 @@ namespace Cube.SO
 
         private void OnEnable()
         {
-            _cubeUnit.CubeMerger.Merge += PlayMergeSfx;
-            _cubeUnit.CubeMerger.Hit += PlayHitSfx;
+            _cubeUnit.CubeMerger.OnCubeMerged += PlaySfxOnCubeMerged;
+            _cubeUnit.CubeMerger.OnCubeHitted += PlaySfxOnCubeHitted;
         }
 
         private void OnDisable()
         {
-            _cubeUnit.CubeMerger.Merge -= PlayMergeSfx;
-            _cubeUnit.CubeMerger.Hit -= PlayHitSfx;
+            _cubeUnit.CubeMerger.OnCubeMerged -= PlaySfxOnCubeMerged;
+            _cubeUnit.CubeMerger.OnCubeHitted -= PlaySfxOnCubeHitted;
         }
 
-        private void PlayMergeSfx(int value, Vector3 position)
+        private void PlaySfxOnCubeMerged(int value, Vector3 position)
         {
             _mergeSfx.Play();
         }
 
-        private void PlayHitSfx(Vector3 position)
+        private void PlaySfxOnCubeHitted(Vector3 position)
         {
             _hitSfx.Play();
         }
