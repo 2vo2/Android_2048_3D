@@ -23,7 +23,7 @@ namespace Cube
             _cubeUnit.CubeMerger.Merge += SetCubeView;
         }
 
-        private void SetCubeView(int cubeNumber)
+        private void SetCubeView(int cubeNumber, Vector3 position)
         {
             _cubeUnit.SetCubeNumber(cubeNumber);
             

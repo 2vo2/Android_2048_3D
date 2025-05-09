@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cube.SO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Cube
 {
@@ -11,7 +12,7 @@ namespace Cube
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private CubeMerger _cubeMerger;
         [SerializeField] private CubeViewer _cubeViewer;
-        [SerializeField] private CubeSound _cubeSound;
+        [SerializeField] private CubeSfx _cubeSfx;
 
         private bool _isMainCube;
         private int _cubeNumber;
