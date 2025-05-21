@@ -1,48 +1,43 @@
 using System;
+using Interface;
 using UI;
 using UnityEngine;
 
 namespace Cube
 {
-    public class CubeMerger : MonoBehaviour
+    public abstract class CubeMerger : MonoBehaviour, ICubeMergeHandler
     {
         [SerializeField] private CubeUnit _cubeUnit;
-        [SerializeField] private float _minImpulseValueForMerge;
         [SerializeField] private float _tossMergeCubeValue;
-        
+        [SerializeField] protected float _minImpulseValueForMerge;
+
         public event Action<int, Vector3> OnCubeMerged;
         public event Action<Vector3> OnCubeHitted;
         
         private void OnCollisionEnter(Collision other)
         {
-            var impulseValue = _cubeUnit.Rigidbody.linearVelocity.sqrMagnitude;
-            
             if (other.gameObject.TryGetComponent(out CubeUnit cubeUnit))
             {
-                if (cubeUnit.CubeNumber == _cubeUnit.CubeNumber &&
-                    impulseValue > _minImpulseValueForMerge)
-                {
-                    cubeUnit.gameObject.SetActive(false);
-                    cubeUnit.CubeMerger.enabled = false;
-                
-                    var mergeValue = _cubeUnit.CubeNumber / 2;
-                    Score.Instance.AddScore(mergeValue);
-
-                    OnCubeMerged?.Invoke(_cubeUnit.CubeNumber * 2, other.contacts[0].point);
-
-                    TossMergeCube();
-                }
-                else
-                {
-                    OnCubeHitted?.Invoke(other.contacts[0].point);
-                }
+                MergeHandle(_cubeUnit, cubeUnit);
             }
         }
 
-        private void TossMergeCube()
+        protected void InvokeCubeMerged(int value, Vector3 position)
+        {
+            OnCubeMerged?.Invoke(value, position);
+        }
+
+        protected void InvokeCubeHitted(Vector3 position)
+        {
+            OnCubeHitted?.Invoke(position);
+        }
+        
+        protected void TossMergeCube()
         {
             var tossVector = new Vector3(0f, 1f, 1f);
             _cubeUnit.Rigidbody.AddForce(tossVector * _tossMergeCubeValue, ForceMode.Impulse);
         }
+
+        public abstract void MergeHandle(CubeUnit self, CubeUnit other);
     }
 }
