@@ -18,6 +18,8 @@ namespace Cube.Merger
                 Score.Instance.AddScore(mergeValue);
 
                 InvokeCubeMerged(self.CubeNumber * 2, transform.position);
+                
+                TossMergeCube();
             }
             else
             {

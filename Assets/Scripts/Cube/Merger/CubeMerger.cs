@@ -18,11 +18,10 @@ namespace Cube.Merger
             if (other.gameObject.TryGetComponent(out CubeUnit cubeUnit))
             {
                 MergeHandle(_cubeUnit, cubeUnit);
-                TossMergeCube();
             }
         }
 
-        private void TossMergeCube()
+        protected void TossMergeCube()
         {
             var tossVector = new Vector3(0f, 1f, 1f);
             _cubeUnit.Rigidbody.AddForce(tossVector * _tossMergeCubeValue, ForceMode.Impulse);
