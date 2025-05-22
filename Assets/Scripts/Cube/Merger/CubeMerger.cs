@@ -1,9 +1,8 @@
 using System;
 using Interface;
-using UI;
 using UnityEngine;
 
-namespace Cube
+namespace Cube.Merger
 {
     public abstract class CubeMerger : MonoBehaviour, ICubeMergeHandler
     {
@@ -19,7 +18,14 @@ namespace Cube
             if (other.gameObject.TryGetComponent(out CubeUnit cubeUnit))
             {
                 MergeHandle(_cubeUnit, cubeUnit);
+                TossMergeCube();
             }
+        }
+
+        private void TossMergeCube()
+        {
+            var tossVector = new Vector3(0f, 1f, 1f);
+            _cubeUnit.Rigidbody.AddForce(tossVector * _tossMergeCubeValue, ForceMode.Impulse);
         }
 
         protected void InvokeCubeMerged(int value, Vector3 position)
@@ -30,12 +36,6 @@ namespace Cube
         protected void InvokeCubeHitted(Vector3 position)
         {
             OnCubeHitted?.Invoke(position);
-        }
-        
-        protected void TossMergeCube()
-        {
-            var tossVector = new Vector3(0f, 1f, 1f);
-            _cubeUnit.Rigidbody.AddForce(tossVector * _tossMergeCubeValue, ForceMode.Impulse);
         }
 
         public abstract void MergeHandle(CubeUnit self, CubeUnit other);

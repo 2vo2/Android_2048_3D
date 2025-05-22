@@ -1,8 +1,6 @@
-using Interface;
 using UI;
-using UnityEngine;
 
-namespace Cube
+namespace Cube.Merger
 {
     public class RegularMerger : CubeMerger
     {
@@ -20,8 +18,6 @@ namespace Cube
                 Score.Instance.AddScore(mergeValue);
 
                 InvokeCubeMerged(self.CubeNumber * 2, transform.position);
-                
-                TossMergeCube();
             }
             else
             {
