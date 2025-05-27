@@ -1,3 +1,4 @@
+using System.Collections;
 using Handlers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,33 +39,29 @@ namespace Cube
             StartCoroutine(DelayedPressStart());
         }
 
-        private System.Collections.IEnumerator DelayedPressStart()
+        private IEnumerator DelayedPressStart()
         {
-            yield return null; // чекаємо один кадр
+            yield return null;
 
-            if (EventSystem.current.IsPointerOverGameObject()) yield break;
+            if (_inputHandler.ClickedUIThisFrame) yield break;
 
             _inputHandler.OnPerformedPointer += OnPerformedPointer;
         }
 
+
         protected virtual void OnPerformedPointer()
         {
             if (CubeUnit == null) return;
+            
+            if (_inputHandler.ClickedUIThisFrame) return;
             
             PointerPosition = _inputHandler.GetWorldPointerPosition(CubeUnit.transform);
         }
 
         protected virtual void OnPressCanceled()
         {
-            StartCoroutine(DelayedPressCanceled());
-        }
-
-        private System.Collections.IEnumerator DelayedPressCanceled()
-        {
-            yield return null; // чекаємо один кадр, щоб EventSystem оновився
-
-            if (EventSystem.current.IsPointerOverGameObject()) yield break;
-
+            if (_inputHandler.ClickedUIThisFrame) return;
+            
             _inputHandler.OnPerformedPointer -= OnPerformedPointer;
         }
     }

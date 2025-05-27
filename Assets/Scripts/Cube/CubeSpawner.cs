@@ -2,11 +2,14 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Handlers;
+using UnityEngine.EventSystems;
 
 namespace Cube
 {
     public class CubeSpawner : MonoBehaviour
     {
+        [SerializeField] private InputHandler _inputHandler;
         [SerializeField] private CubeThrowers _cubeThrower;
         [SerializeField] private CubeUnit _cubePrefab;
         [SerializeField] private Transform _spawnPoint;
@@ -49,6 +52,8 @@ namespace Cube
 
         private void OnCubeThrowed(CubeUnit thrownCube)
         {
+            if (_inputHandler.ClickedUIThisFrame) return;
+            
             _activeCube = null;
             
             if (_waitForStopCoroutine != null)
