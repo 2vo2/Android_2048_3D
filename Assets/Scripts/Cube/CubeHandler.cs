@@ -1,5 +1,6 @@
 using Handlers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Cube
 {
@@ -34,6 +35,15 @@ namespace Cube
         {
             if (CubeUnit == null) return;
 
+            StartCoroutine(DelayedPressStart());
+        }
+
+        private System.Collections.IEnumerator DelayedPressStart()
+        {
+            yield return null; // чекаємо один кадр
+
+            if (EventSystem.current.IsPointerOverGameObject()) yield break;
+
             _inputHandler.OnPerformedPointer += OnPerformedPointer;
         }
 
@@ -46,6 +56,15 @@ namespace Cube
 
         protected virtual void OnPressCanceled()
         {
+            StartCoroutine(DelayedPressCanceled());
+        }
+
+        private System.Collections.IEnumerator DelayedPressCanceled()
+        {
+            yield return null; // чекаємо один кадр, щоб EventSystem оновився
+
+            if (EventSystem.current.IsPointerOverGameObject()) yield break;
+
             _inputHandler.OnPerformedPointer -= OnPerformedPointer;
         }
     }
