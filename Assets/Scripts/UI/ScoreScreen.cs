@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Handlers.Game;
+using TMPro;
 using UnityEngine;
 
 namespace UI

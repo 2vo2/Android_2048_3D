@@ -1,17 +1,19 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace UI
+namespace Handlers.Game
 {
     public class GameScore : MonoBehaviour
     {
         public static GameScore Instance;
 
-        [SerializeField] private int _moneyThreshold = 10;
+        [SerializeField] private int _scoreThreshold = 10;
         
         private int _scoreValue;
         private int _highScoreValue;
         private int _moneyValue;
+        private int _nextScoreThreshold;
         
         public int ScoreValue => _scoreValue;
         public int HighScoreValue => _highScoreValue;
@@ -19,6 +21,7 @@ namespace UI
         
         public event Action<int> OnScoreChanged; 
         public event Action<int> OnHighScoreChanged;
+        public event Action OnScoreThresholdReached;
 
         public void Initialize()
         {
@@ -28,6 +31,7 @@ namespace UI
                 Destroy(gameObject);
             
             _highScoreValue = PlayerPrefs.GetInt("HighScore", 0);
+            _nextScoreThreshold = _scoreThreshold;
             OnHighScoreChanged?.Invoke(_highScoreValue);
             
             DontDestroyOnLoad(gameObject);
@@ -39,14 +43,10 @@ namespace UI
             
             _scoreValue += value;
 
-            if (_scoreValue >= _moneyThreshold)
+            if (_scoreValue >= _nextScoreThreshold)
             {
-                _moneyValue++;
-                
-                _moneyThreshold += 10;
-                
-                print(_moneyValue);
-                print(_moneyThreshold);
+                _nextScoreThreshold += _scoreThreshold;
+                OnScoreThresholdReached?.Invoke();
             }
             
             if (_scoreValue > _highScoreValue)
