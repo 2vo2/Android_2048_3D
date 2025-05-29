@@ -1,49 +1,51 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Handlers
 {
     public class InputHandler : MonoBehaviour
     {
-        private TouchScreenAction _touchScreenAction;
-
-        private Camera _mainCamera;
+        [SerializeField] private Camera _mainCamera;
         
+        private TouchScreenAction _screenTouch;
+
         public event Action OnPressStarted;
         public event Action OnPerformedPointer;
         public event Action OnPressCanceled;
+        
+        public bool ClickedUI { get; private set; }
 
         private void Awake()
         {
-            Init();
-            _mainCamera = Camera.main;
+            _screenTouch = new TouchScreenAction();
+            
+            _screenTouch.TouchScreen.PressScreen.started += _ => OnPressStarted?.Invoke();
+            _screenTouch.TouchScreen.PressScreen.canceled += _ => OnPressCanceled?.Invoke();
+            _screenTouch.TouchScreen.TouchPosition.performed += _ => OnPerformedPointer?.Invoke();
         }
 
         private void OnEnable()
         {
-            _touchScreenAction.TouchScreen.Enable();
+            _screenTouch.TouchScreen.Enable();
+        }
+
+        private void LateUpdate()
+        {
+            ClickedUI = EventSystem.current.IsPointerOverGameObject();
         }
 
         private void OnDisable()
         {
-            _touchScreenAction.TouchScreen.Disable();
+            _screenTouch.TouchScreen.Disable();
         }
 
-        private void Init()
+        public Vector3 GetTouchPosition(Transform cubeTransform)
         {
-            _touchScreenAction = new TouchScreenAction();
-
-            _touchScreenAction.TouchScreen.PressScreen.started += _ => OnPressStarted?.Invoke();
-            _touchScreenAction.TouchScreen.TouchPosition.performed += _ => OnPerformedPointer?.Invoke();
-            _touchScreenAction.TouchScreen.PressScreen.canceled += _ => OnPressCanceled?.Invoke();
-        }
-        
-        public Vector3 GetWorldPointerPosition(Transform referenceTransform)
-        {
-            var depth = Vector3.Distance(_mainCamera.transform.position, referenceTransform.position);
-            var screenPos = _touchScreenAction.TouchScreen.TouchPosition.ReadValue<Vector2>();
+            var depth = Vector3.Distance(_mainCamera.transform.position, cubeTransform.position);
+            var screenPosition = _screenTouch.TouchScreen.TouchPosition.ReadValue<Vector2>();
             
-            return _mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
+            return _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, depth));
         }
     }
 }
