@@ -13,7 +13,7 @@ namespace UI
         
         protected override void OnButtonClick()
         {
-            if (_bonusCubeCost >= _wallet.MoneyValue)
+            if (_bonusCubeCost >= _wallet.MoneyValue && _wallet.MoneyValue > GameScore.Instance.ScoreThreshold)
             {
                 _wallet.DecreaseMoney(_bonusCubeCost);
                 _wallet.InvokeMoneyChanged(_wallet.MoneyValue);

@@ -12,12 +12,11 @@ namespace Handlers.Game
         
         private int _scoreValue;
         private int _highScoreValue;
-        private int _moneyValue;
         private int _nextScoreThreshold;
         
         public int ScoreValue => _scoreValue;
         public int HighScoreValue => _highScoreValue;
-        public int MoneyValue => _moneyValue;
+        public int ScoreThreshold => _nextScoreThreshold;
         
         public event Action<int> OnScoreChanged; 
         public event Action<int> OnHighScoreChanged;
