@@ -1,54 +1,81 @@
-using General;
+﻿using System;
+using Cube;
+using Handlers.Game;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
     public class GameOverScreen : MonoBehaviour
     {
-        [SerializeField] private GameOverChecker _gameOverChecker;
-        [SerializeField] private GameObject _cubeHandlers;
+        [Header("General")]
+        [SerializeField] private GameOverArea _gameOverArea;
+        [SerializeField] private CubeHandler _cubeHandler;
+        [SerializeField] private GameObject _bonusButtonsScreen;
+
+
+        [Header("CanvasGroups")]
         [SerializeField] private CanvasGroup _gameOverScreen;
         [SerializeField] private CanvasGroup _scoreScreen;
-        [SerializeField] private CanvasGroup _timerContainer;
+        [SerializeField] private CanvasGroup _timerScreen;
+        
+        [Header("Texts")]
         [SerializeField] private TMP_Text _timerText;
-
+        [SerializeField] private TMP_Text _scoreText;
+        [SerializeField] private TMP_Text _highScoreText;
+        
         private void OnEnable()
         {
-            _gameOverChecker.OnGameOver += ShowScreen;
-            _gameOverChecker.OnTimeLeftChanged += UpdateTimer;
-            _gameOverChecker.OnTimerStarted += ShowTimer;
-            _gameOverChecker.OnTimerStopped += HideTimer;
+            _gameOverArea.OnGameOver += OnGameOver;
+            _gameOverArea.OnTimeToLoseChanged += OnTimeToLoseChanged;
+            _gameOverArea.OnTimerStarted += OnTimeStarted;
+            _gameOverArea.OnTimerStopped += OnTimerStopped;
         }
 
         private void OnDisable()
         {
-            _gameOverChecker.OnGameOver -= ShowScreen;
-            _gameOverChecker.OnTimeLeftChanged -= UpdateTimer;
-            _gameOverChecker.OnTimerStarted -= ShowTimer;
-            _gameOverChecker.OnTimerStopped -= HideTimer;
+            _gameOverArea.OnGameOver -= OnGameOver;
+            _gameOverArea.OnTimeToLoseChanged -= OnTimeToLoseChanged;
+            _gameOverArea.OnTimerStarted -= OnTimeStarted;
+            _gameOverArea.OnTimerStopped -= OnTimerStopped;
         }
 
-        private void ShowScreen()
+        private void OnGameOver()
         {
-            _cubeHandlers.SetActive(false);
-            _scoreScreen.alpha = 0f;
-            _gameOverScreen.alpha = 1f;
-        }
-        
-        private void UpdateTimer(float timeLeft)
-        {
-            _timerText.text = $"Time to lose: {Mathf.CeilToInt(timeLeft)}";
-        }
-        
-        private void ShowTimer()
-        {
-            _timerContainer.alpha = 1f;
+            _cubeHandler.gameObject.SetActive(false);
+            _gameOverArea.gameObject.SetActive(false);
+            
+            EnableCanvasGroup(_gameOverScreen, 1f, true, true);
+            EnableCanvasGroup(_scoreScreen, 0f, false, false);
+            EnableCanvasGroup(_timerScreen, 0f, false, false);
+            
+            _bonusButtonsScreen.SetActive(false);
+            
+            _scoreText.text = $"SCORE: {GameScore.Instance.ScoreValue}";
+            _highScoreText.text = $"HIGHSCORE: {GameScore.Instance.HighScoreValue}";
         }
 
-        private void HideTimer()
+        private void EnableCanvasGroup(CanvasGroup canvasGroup, float alpha, bool interactable, bool blocksRaycasts)
         {
-            _timerContainer.alpha = 0f;
+            canvasGroup.alpha = alpha;
+            canvasGroup.interactable = interactable;
+            canvasGroup.blocksRaycasts = blocksRaycasts;
+        }
+
+        private void OnTimeToLoseChanged(float time)
+        {
+            _timerText.text = $"Time to Lose: {Mathf.CeilToInt(time)}";
+        }
+
+        private void OnTimeStarted()
+        {
+            EnableCanvasGroup(_timerScreen, 1f, false, false);
+        }
+
+        private void OnTimerStopped()
+        {
+            EnableCanvasGroup(_timerScreen, 0f, false, false);
         }
     }
 }

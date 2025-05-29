@@ -1,5 +1,4 @@
-using System;
-using UI;
+﻿using System;
 using UnityEngine;
 
 namespace Cube.Merger
@@ -8,37 +7,22 @@ namespace Cube.Merger
     {
         [SerializeField] private float _explosionRadius;
         
-        public override void MergeHandle(CubeUnit self, CubeUnit other)
+        public override void MergeCube(CubeUnit self, CubeUnit other)
         {
-            var impulseValue = self.Rigidbody.linearVelocity.sqrMagnitude;
+            var cubesInOverlapSphere = Physics.OverlapSphere(transform.position, _explosionRadius);
+
+            self.CubeMerger.InvokeCubeMerged(self.CubeNumber * 2);
             
-            if (impulseValue > _minImpulseValueForMerge)
+            foreach (var cube in cubesInOverlapSphere)
             {
-                var cubes = Physics.OverlapSphere(self.transform.position, _explosionRadius);
-
-                foreach (var cube in cubes)
+                if (cube.TryGetComponent(out CubeUnit cubeUnit))
                 {
-                    if (cube.TryGetComponent(out CubeUnit cubeUnit))
-                    {
-                        cubeUnit.gameObject.SetActive(false);
-                        cubeUnit.CubeMerger.enabled = false;
-                        
-                        var mergeValue = other.CubeNumber / 2;
-                        Score.Instance.AddScore(mergeValue);
-                    }
+                    EnableMergeCube(cubeUnit, false);
+                    AddMergeValueToScore(cubeUnit);
                 }
-
-                self.gameObject.SetActive(false);
-                self.CubeMerger.enabled = false;
-                
-                InvokeCubeMerged(other.CubeNumber * 2, transform.position);
-                
-                TossMergeCube();
             }
-            else
-            {
-                InvokeCubeHitted(transform.position);
-            }
+            
+            EnableMergeCube(self, false);
         }
 
         private void OnDrawGizmos()

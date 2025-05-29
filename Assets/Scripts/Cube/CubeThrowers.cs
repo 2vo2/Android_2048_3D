@@ -23,7 +23,7 @@ namespace Cube
         
         private void ThrowCube()
         {
-            CubeUnit.gameObject.layer = CubeUnit.CubeUnitData.CubeOnBoardLayer;
+            CubeUnit.gameObject.layer = CubeUnit.CubeUnitData.OnBoardCubeLayer;
             CubeUnit.Rigidbody.linearVelocity = Vector3.forward * _throwForce;
             OnCubeThrowed?.Invoke(CubeUnit);
 

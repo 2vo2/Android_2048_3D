@@ -1,5 +1,6 @@
+﻿using System;
 using Cube.Merger;
-using Cube.SO;
+using SO;
 using UnityEngine;
 
 namespace Cube
@@ -7,30 +8,29 @@ namespace Cube
     [RequireComponent(typeof(Rigidbody))]
     public class CubeUnit : MonoBehaviour
     {
-        [SerializeField] private CubeUnitSo _cubeUnitData;
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private CubeMerger _cubeMerger;
+        [SerializeField] private CubeUnitSO _cubeUnitData;
         [SerializeField] private CubeViewer _cubeViewer;
-        [SerializeField] private CubeSfx _cubeSfx;
+        [SerializeField] private CubeMerger _cubeMerger;
 
         private bool _isMainCube;
         private int _cubeNumber;
         
-        public CubeUnitSo CubeUnitData => _cubeUnitData;
         public Rigidbody Rigidbody => _rigidbody;
-        public CubeMerger CubeMerger => _cubeMerger;
+        public CubeUnitSO CubeUnitData => _cubeUnitData;
         public CubeViewer CubeViewer => _cubeViewer;
+        public CubeMerger CubeMerger => _cubeMerger;
         public bool IsMainCube => _isMainCube;
         public int CubeNumber => _cubeNumber;
-        
+
         public void SetMainCube(bool isMainCube)
         {
             _isMainCube = isMainCube;
         }
-        
+
         public void SetCubeNumber(int cubeNumber)
         {
-            if (cubeNumber < 2) return;
+            if (cubeNumber % 2 != 0) return;
             
             _cubeNumber = cubeNumber;
         }

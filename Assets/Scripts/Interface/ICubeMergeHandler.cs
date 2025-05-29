@@ -1,9 +1,9 @@
-using Cube;
+﻿using Cube;
 
 namespace Interface
 {
     public interface ICubeMergeHandler
     {
-        public void MergeHandle(CubeUnit self, CubeUnit other);
+        public void MergeCube(CubeUnit self, CubeUnit other);
     }
 }

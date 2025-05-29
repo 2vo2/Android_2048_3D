@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,41 +9,46 @@ namespace Cube
     {
         [SerializeField] private CubeUnit _cubeUnit;
         [SerializeField] private MeshRenderer _meshRenderer;
-        [SerializeField] private List<TMP_Text> _texts;
+        [SerializeField] private List<TMP_Text> _numbersTexts;
 
         private void OnEnable()
         {
-            _cubeUnit.CubeMerger.OnCubeMerged += SetMergedCubeView;
+            _cubeUnit.CubeMerger.OnCubeMerged += SetCubeView;
         }
 
         private void OnDisable()
         {
-            _cubeUnit.CubeMerger.OnCubeMerged += SetMergedCubeView;
+            _cubeUnit.CubeMerger.OnCubeMerged -= SetCubeView;   
         }
 
-        private void SetMergedCubeView(int cubeNumber, Vector3 position)
+        private void SetCubeView(int number)
         {
+            var cubeNumber = number;
+            
             _cubeUnit.SetCubeNumber(cubeNumber);
-            
-            foreach (var tmpText in _texts)
+
+            foreach (var numberText in _numbersTexts)
             {
-                tmpText.text = cubeNumber.ToString();
+                numberText.text = cubeNumber.ToString();
             }
-            
+
             var cubeColor = _cubeUnit.CubeUnitData.CubeColor(cubeNumber);
             _meshRenderer.material.color = cubeColor;
         }
 
+        
         public void SetCubeView()
         {
-            _cubeUnit.SetCubeNumber(_cubeUnit.CubeUnitData.CubeNumber());
-
-            foreach (var tmpText in _texts)
-            {
-                tmpText.text = _cubeUnit.CubeNumber.ToString();
-            }
+            var cubeNumber = _cubeUnit.CubeUnitData.CubeNumber();
             
-            var cubeColor = _cubeUnit.CubeUnitData.CubeColor(_cubeUnit.CubeNumber);
+            _cubeUnit.SetCubeNumber(cubeNumber);
+
+            foreach (var numberText in _numbersTexts)
+            {
+                numberText.text = cubeNumber.ToString();
+            }
+
+            var cubeColor = _cubeUnit.CubeUnitData.CubeColor(cubeNumber);
             _meshRenderer.material.color = cubeColor;
         }
     }

@@ -1,17 +1,21 @@
-using Cube;
-using Cube.Merger;
+﻿using Cube;
 using UnityEngine;
 
 namespace UI
 {
     public class BonusCubeButton : UIButton
     {
-        [SerializeField] private CubeUnit _bonusCube;
+        [SerializeField] private int _bonusCubeCost;
+        [SerializeField] private CubeUnit _bonusCubeUnit;
         [SerializeField] private CubeSpawner _cubeSpawner;
         
         protected override void OnButtonClick()
         {
-            _cubeSpawner.SpawnBonusCube(_bonusCube);
+            if (_bonusCubeCost >= GameScore.Instance.MoneyValue)
+            {
+                _cubeSpawner.SpawnBonusCube(_bonusCubeUnit);
+                //GameScore.Instance.MoneyValue -= _bonusCubeCost;
+            }
         }
     }
 }

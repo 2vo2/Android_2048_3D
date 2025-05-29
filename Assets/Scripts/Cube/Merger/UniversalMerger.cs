@@ -1,32 +1,18 @@
-using UI;
-
-namespace Cube.Merger
+﻿namespace Cube.Merger
 {
     public class UniversalMerger : CubeMerger
     {
-        public override void MergeHandle(CubeUnit self, CubeUnit other)
+        public override void MergeCube(CubeUnit self, CubeUnit other)
         {
-            var impulseValue = self.Rigidbody.linearVelocity.sqrMagnitude;
+            self.CubeMerger.InvokeCubeMerged(self.CubeNumber * 2);
             
-            if (impulseValue > _minImpulseValueForMerge)
-            {
-                self.gameObject.SetActive(false);
-                self.CubeMerger.enabled = false;
-                
-                other.gameObject.SetActive(false);
-                other.CubeMerger.enabled = false;
-                
-                var mergeValue = other.CubeNumber / 2;
-                Score.Instance.AddScore(mergeValue);
+            EnableMergeCube(self, false);
 
-                InvokeCubeMerged(other.CubeNumber * 2, transform.position);
-                
-                TossMergeCube();
-            }
-            else
-            {
-                InvokeCubeHitted(transform.position);
-            }
+            AddMergeValueToScore(other);
+
+            TossMergeCube(other);
+            
+            other.CubeMerger.InvokeCubeMerged(other.CubeNumber * 2);
         }
     }
 }

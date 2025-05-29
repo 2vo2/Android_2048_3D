@@ -1,31 +1,33 @@
+﻿using System;
+using System.Collections;
 using Handlers;
 using UnityEngine;
 
 namespace Cube
 {
-    public abstract class CubeHandler : MonoBehaviour
+    public class CubeHandler : MonoBehaviour
     {
-        [SerializeField] private InputHandler _inputHandler;
+        [SerializeField] protected InputHandler _inputHandler;
         [SerializeField] private CubeSpawner _cubeSpawner;
 
         protected CubeUnit CubeUnit;
-        protected Vector3 PointerPosition;
-
+        protected Vector3 TouchPosition;
+        
         private void OnEnable()
         {
-            _cubeSpawner.OnNewCubeSpawned += OnNewCubeSpawned;
+            _cubeSpawner.OnCubeSpawned += OnCubeSpawned;
             _inputHandler.OnPressStarted += OnPressStarted;
             _inputHandler.OnPressCanceled += OnPressCanceled;
         }
 
         private void OnDisable()
         {
-            _cubeSpawner.OnNewCubeSpawned -= OnNewCubeSpawned;
+            _cubeSpawner.OnCubeSpawned -= OnCubeSpawned;
             _inputHandler.OnPressStarted -= OnPressStarted;
             _inputHandler.OnPressCanceled -= OnPressCanceled;
         }
 
-        private void OnNewCubeSpawned(CubeUnit newCube)
+        private void OnCubeSpawned(CubeUnit newCube)
         {
             CubeUnit = newCube;
         }
@@ -34,6 +36,15 @@ namespace Cube
         {
             if (CubeUnit == null) return;
 
+            StartCoroutine(DelayedPressStart());
+        }
+
+        private IEnumerator DelayedPressStart()
+        {
+            yield return null;
+            
+            if (_inputHandler.ClickedUI) yield break;
+            
             _inputHandler.OnPerformedPointer += OnPerformedPointer;
         }
 
@@ -41,9 +52,9 @@ namespace Cube
         {
             if (CubeUnit == null) return;
             
-            PointerPosition = _inputHandler.GetWorldPointerPosition(CubeUnit.transform);
+            TouchPosition = _inputHandler.GetTouchPosition(CubeUnit.transform);
         }
-
+        
         protected virtual void OnPressCanceled()
         {
             _inputHandler.OnPerformedPointer -= OnPerformedPointer;

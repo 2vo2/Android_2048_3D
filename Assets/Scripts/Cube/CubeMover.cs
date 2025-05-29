@@ -1,24 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Cube
 {
     public class CubeMover : CubeHandler
     {
+        [SerializeField] private float _clampX;
+        
         protected override void OnPerformedPointer()
         {
             base.OnPerformedPointer();
 
-            if (CubeUnit.IsMainCube)
-            {
-                MoveCube();
-            }
+            MoveCube();
         }
-        
+
         private void MoveCube()
         {
-            var clampPointerPositionX = Mathf.Clamp(PointerPosition.x, -4f, 4f);
-            var newCubePosition = new Vector3(clampPointerPositionX, CubeUnit.transform.position.z, CubeUnit.transform.position.z);
-                
+            if (!CubeUnit.IsMainCube) return;
+            
+            var clampedPosition = Mathf.Clamp(TouchPosition.x, -_clampX, _clampX);
+            var newCubePosition = new Vector3(clampedPosition, CubeUnit.transform.position.y, CubeUnit.transform.position.z);
+            
             CubeUnit.transform.position = newCubePosition;
         }
     }

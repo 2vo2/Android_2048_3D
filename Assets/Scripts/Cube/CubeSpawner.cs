@@ -1,31 +1,45 @@
-using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Cube
 {
     public class CubeSpawner : MonoBehaviour
     {
-        [SerializeField] private CubeThrowers _cubeThrower;
         [SerializeField] private CubeUnit _cubePrefab;
         [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private CubeThrower _cubeThrower;
 
-        private CubeUnit _activeCube;
-        private Coroutine _waitForStopCoroutine;
-        
         private List<CubeUnit> _cubeUnits = new List<CubeUnit>();
         
-        public event Action<CubeUnit> OnNewCubeSpawned;
+        private CubeUnit _currentCube;
+        private Coroutine _waitCubeStopped;
+        
+        public event Action<CubeUnit> OnCubeSpawned;
+
+        private void OnEnable()
+        {
+            _cubeThrower.OnCubeThrowed += OnCubeThrowed;
+        }
 
         private void Start()
         {
             _cubeUnits.Add(SpawnCube(_cubePrefab));
         }
 
-        private void OnEnable()
+        private CubeUnit SpawnCube(CubeUnit cubeUnit)
         {
-            _cubeThrower.OnCubeThrowed += OnCubeThrowed;
+            var newCube = Instantiate(cubeUnit, _spawnPoint.position, Quaternion.identity, transform);
+            _currentCube = newCube;
+            
+            _currentCube.CubeUnitData.SetCubeLayer(newCube, newCube.CubeUnitData.MainCubeLayer);
+            _currentCube.SetMainCube(true);
+            _currentCube.CubeViewer.SetCubeView();
+            
+            OnCubeSpawned?.Invoke(_currentCube);
+            
+            return _currentCube;
         }
 
         private void OnDisable()
@@ -33,81 +47,63 @@ namespace Cube
             _cubeThrower.OnCubeThrowed -= OnCubeThrowed;
         }
 
-        private CubeUnit SpawnCube(CubeUnit cubeUnit)
+        private void OnCubeThrowed(CubeUnit throwedCube)
         {
-            var newCube = Instantiate(cubeUnit, _spawnPoint.position, Quaternion.identity, transform);
-            _activeCube = newCube;
-            
-            _activeCube.gameObject.layer = _activeCube.CubeUnitData.MainCubeLayer;
-            _activeCube.SetMainCube(true);
-            _activeCube.CubeViewer.SetCubeView();
-        
-            OnNewCubeSpawned?.Invoke(_activeCube);
+            _currentCube.SetMainCube(false);
+            _currentCube = null;
 
-            return _activeCube;
+            if (_waitCubeStopped != null) StopCoroutine(_waitCubeStopped);
+            
+            _waitCubeStopped = StartCoroutine(WaitCubeStopped(throwedCube));
         }
 
-        private void OnCubeThrowed(CubeUnit thrownCube)
-        {
-            _activeCube = null;
-            
-            if (_waitForStopCoroutine != null)
-                StopCoroutine(_waitForStopCoroutine);
-
-            _waitForStopCoroutine = StartCoroutine(WaitForCubeToStop(thrownCube));
-        }
-
-        private IEnumerator WaitForCubeToStop(CubeUnit cube)
+        private IEnumerator WaitCubeStopped(CubeUnit cube)
         {
             const float threshold = 0.1f;
             const float delay = 0.1f;
-            const float timeout = 3f;
-
+            const float timeout = 1f;
+            
             var cubeRigidbody = cube.Rigidbody;
             var timer = 0f;
-            
+
             while (cubeRigidbody != null && cubeRigidbody.linearVelocity.sqrMagnitude > threshold)
             {
                 yield return new WaitForSeconds(delay);
                 
                 timer += delay;
 
-                if (timer >= timeout)
-                {
-                    break;
-                }
+                if (timer >= timeout) break;
             }
 
             cube.CubeMerger.enabled = true;
             
-            TakeCubeFromPool(cube);
+            TakeCubeFromPool();
         }
 
-        private void TakeCubeFromPool(CubeUnit cube)
+        private void TakeCubeFromPool()
         {
             for (int i = 0; i < _cubeUnits.Count; i++)
-            { 
+            {
                 var cubeUnit = _cubeUnits[i];
-                
-                if (!_cubeUnits[i].gameObject.activeSelf)
+
+                if (!cubeUnit.gameObject.activeSelf)
                 {
                     ResetCube(cubeUnit);
-
-                    cubeUnit.gameObject.SetActive(true);
-                    cubeUnit.CubeMerger.enabled = false;  
                     
+                    cubeUnit.gameObject.SetActive(true);
                     cubeUnit.SetMainCube(true);
                     cubeUnit.CubeViewer.SetCubeView();
+                    cubeUnit.CubeUnitData.SetCubeLayer(cubeUnit, cubeUnit.CubeUnitData.MainCubeLayer);
                     
-                    _activeCube = cubeUnit;
+                    _currentCube = cubeUnit;
                     
-                    OnNewCubeSpawned?.Invoke(cubeUnit);
+                    OnCubeSpawned?.Invoke(cubeUnit);
                     
                     return;
                 }
             }
             
-            _cubeUnits.Add(SpawnCube(cube));
+            _cubeUnits.Add(SpawnCube(_cubePrefab));
         }
 
         private void ResetCube(CubeUnit cubeUnit)
@@ -116,17 +112,17 @@ namespace Cube
             cubeUnit.Rigidbody.angularVelocity = Vector3.zero;
             cubeUnit.transform.position = _spawnPoint.position;
             cubeUnit.transform.rotation = Quaternion.identity;
+            cubeUnit.CubeMerger.enabled = false;
         }
 
         public void SpawnBonusCube(CubeUnit bonusCube)
         {
-            if (_waitForStopCoroutine != null)
-                StopCoroutine(_waitForStopCoroutine);
-
-            if (_activeCube != null)
+            if (_waitCubeStopped != null) StopCoroutine(_waitCubeStopped);
+            
+            if (_currentCube != null)
             {
-                _activeCube.gameObject.SetActive(false);
-                _activeCube = null;   
+                _currentCube.gameObject.SetActive(false);
+                _currentCube = null;
             }
             
             SpawnCube(bonusCube);
