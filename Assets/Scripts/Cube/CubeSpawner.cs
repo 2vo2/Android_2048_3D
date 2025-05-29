@@ -52,7 +52,7 @@ namespace Cube
 
         private void OnCubeThrowed(CubeUnit thrownCube)
         {
-            if (_inputHandler.ClickedUIThisFrame) return;
+            if (_inputHandler.ClickedUI) return;
             
             _activeCube = null;
             

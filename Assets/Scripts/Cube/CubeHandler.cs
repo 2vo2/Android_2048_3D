@@ -1,33 +1,33 @@
+using System;
 using System.Collections;
 using Handlers;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Cube
 {
-    public abstract class CubeHandler : MonoBehaviour
+    public class CubeHandler : MonoBehaviour
     {
-        [SerializeField] private InputHandler _inputHandler;
+        [SerializeField] protected InputHandler _inputHandler;
         [SerializeField] private CubeSpawner _cubeSpawner;
 
         protected CubeUnit CubeUnit;
-        protected Vector3 PointerPosition;
-
+        protected Vector3 TouchPosition;
+        
         private void OnEnable()
         {
-            _cubeSpawner.OnNewCubeSpawned += OnNewCubeSpawned;
+            _cubeSpawner.OnNewCubeSpawned += OnCubeSpawned;
             _inputHandler.OnPressStarted += OnPressStarted;
             _inputHandler.OnPressCanceled += OnPressCanceled;
         }
 
         private void OnDisable()
         {
-            _cubeSpawner.OnNewCubeSpawned -= OnNewCubeSpawned;
+            _cubeSpawner.OnNewCubeSpawned -= OnCubeSpawned;
             _inputHandler.OnPressStarted -= OnPressStarted;
             _inputHandler.OnPressCanceled -= OnPressCanceled;
         }
 
-        private void OnNewCubeSpawned(CubeUnit newCube)
+        private void OnCubeSpawned(CubeUnit newCube)
         {
             CubeUnit = newCube;
         }
@@ -42,26 +42,21 @@ namespace Cube
         private IEnumerator DelayedPressStart()
         {
             yield return null;
-
-            if (_inputHandler.ClickedUIThisFrame) yield break;
-
+            
+            if (_inputHandler.ClickedUI) yield break;
+            
             _inputHandler.OnPerformedPointer += OnPerformedPointer;
         }
-
 
         protected virtual void OnPerformedPointer()
         {
             if (CubeUnit == null) return;
             
-            if (_inputHandler.ClickedUIThisFrame) return;
-            
-            PointerPosition = _inputHandler.GetWorldPointerPosition(CubeUnit.transform);
+            TouchPosition = _inputHandler.GetTouchPosition(CubeUnit.transform);
         }
-
+        
         protected virtual void OnPressCanceled()
         {
-            if (_inputHandler.ClickedUIThisFrame) return;
-            
             _inputHandler.OnPerformedPointer -= OnPerformedPointer;
         }
     }

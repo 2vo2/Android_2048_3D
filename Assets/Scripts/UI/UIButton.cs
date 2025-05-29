@@ -1,4 +1,4 @@
-using Handlers;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,26 +6,18 @@ namespace UI
 {
     public abstract class UIButton : MonoBehaviour
     {
-        [SerializeField] private Button _uiButton;
-        [SerializeField] private InputHandler _inputHandler;
+        [SerializeField] private Button _button;
 
         private void OnEnable()
         {
-            _inputHandler.OnUIClicked += RegisterUIListener;
+            _button.onClick.AddListener(OnButtonClick);
         }
 
         private void OnDisable()
         {
-            _inputHandler.OnUIClicked -= RegisterUIListener;
-            _uiButton.onClick.RemoveListener(OnButtonClick);
+            _button.onClick.RemoveListener(OnButtonClick);
         }
-
-        private void RegisterUIListener()
-        {
-            _uiButton.onClick.RemoveListener(OnButtonClick);
-            _uiButton.onClick.AddListener(OnButtonClick);
-        }
-
+        
         protected abstract void OnButtonClick();
     }
 }
