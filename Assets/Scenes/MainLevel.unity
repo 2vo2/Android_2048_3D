@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa0139203c94e0299fce879cbd8893a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiButton: {fileID: 115789897}
+  _button: {fileID: 115789897}
   _bonusCube: {fileID: 6743169036341600590, guid: df495e52522b2bd4da6c096c448205a5, type: 3}
   _cubeSpawner: {fileID: 226328194}
 --- !u!1 &127520903
@@ -727,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735934d6baec41268c84127e52675067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputHandler: {fileID: 402308152}
   _cubeThrower: {fileID: 1923706893}
   _cubePrefab: {fileID: 6743169036341600590, guid: c0424d3c150a842449b195cec99ba24a, type: 3}
   _spawnPoint: {fileID: 1598764397}
@@ -1063,6 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb37c43c2b973143959102bbe3d0fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 330585545}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1233,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &482394142
 GameObject:
@@ -1409,7 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa0139203c94e0299fce879cbd8893a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiButton: {fileID: 612877718}
+  _button: {fileID: 612877718}
   _bonusCube: {fileID: 6743169036341600590, guid: a140b017d1a96d247a33ca3b393eb7b9, type: 3}
   _cubeSpawner: {fileID: 226328194}
 --- !u!114 &612877718
@@ -1867,7 +1869,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &832575517
 GameObject:
@@ -2292,7 +2294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468f090a85b247a2a605be6a287de19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiButton: {fileID: 939732847}
+  _button: {fileID: 939732847}
 --- !u!1 &1091412412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,7 +2669,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1278399884
 GameObject:
@@ -2733,17 +2735,17 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
