@@ -12,6 +12,7 @@ namespace UI
         
         private VisualElement _root;
         private Label _highScoreLabel;
+        private Label _moneyLabel;
         private Button _playButton;
         private Button _resetScoreButton;
 
@@ -20,10 +21,12 @@ namespace UI
             _root = _uiDocument.rootVisualElement;
             
             _highScoreLabel = _root.Q<Label>("HighScoreLabel");
+            _moneyLabel = _root.Q<Label>("MoneyLabel");
             _playButton = _root.Q<Button>("PlayButton");
             _resetScoreButton = _root.Q<Button>("ResetScoreButton");
             
             _highScoreLabel.text = $"HIGHSCORE: {GameScore.Instance.HighScoreValue}";
+            _moneyLabel.text = $"MONEY: {Wallet.Instance.MoneyValue}";
             
             _playButton.RegisterCallback<ClickEvent>(OnPlayButtonClick);
             _resetScoreButton.RegisterCallback<ClickEvent>(OnResetScoreButtonClick);

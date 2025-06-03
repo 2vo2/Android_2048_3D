@@ -1,26 +1,31 @@
 using System;
+using Interface;
 using UnityEngine;
 
 namespace Handlers.Game
 {
-    public class Wallet : MonoBehaviour
+    public class Wallet : MonoBehaviour, IInitializable
     {
-        private GameScore _gameScore;
+        public static Wallet Instance;
+        
+        [SerializeField] private GameScore _gameScore;
         private int _moneyValue;
         
         public event Action<int> OnMoneyChanged;
         
         public int MoneyValue => _moneyValue;
 
-        private void Awake()
+        public void Initialize()
         {
-            _gameScore = GameScore.Instance;
+            if (Instance == null)
+                Instance = this;
+            else if (Instance == this)
+                Destroy(gameObject);
+            
             _moneyValue = PlayerPrefs.GetInt("Coin", 0);
-        }
-
-        private void Start()
-        {
-            OnScoreThresholdReached(0);
+            OnMoneyChanged?.Invoke(_moneyValue);
+            
+            DontDestroyOnLoad(gameObject);
         }
 
         private void OnEnable()
@@ -44,7 +49,7 @@ namespace Handlers.Game
         {
             OnMoneyChanged?.Invoke(moneyValue);
         }
-        
+
         public void DecreaseMoney(int amount)
         {
             if (amount < 0) return;

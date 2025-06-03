@@ -1,4 +1,5 @@
-﻿using Handlers.Game;
+﻿using System;
+using Handlers.Game;
 using TMPro;
 using UnityEngine;
 
@@ -9,12 +10,15 @@ namespace UI
         [SerializeField] private TMP_Text _scoreText;
         [SerializeField] private TMP_Text _highScoreText;
 
+        private void Start()
+        {
+            ShowScores(_highScoreText, GameScore.Instance.HighScoreValue);
+        }
+
         private void OnEnable()
         {
             GameScore.Instance.OnScoreChanged += OnScoreChanged;
             GameScore.Instance.OnHighScoreChanged += OnHighScoreChanged;
-            
-            ShowScores(_highScoreText, GameScore.Instance.HighScoreValue);
         }
 
         private void OnDisable()

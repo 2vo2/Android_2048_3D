@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 68860364}
-  - component: {fileID: 68860365}
   - component: {fileID: 68860366}
   m_Layer: 5
   m_Name: MoneyScreen
@@ -157,18 +156,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &68860365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68860363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a55e42f9484a8884052b52f5824ef5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &68860366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889f2824a8b14a3aaa64f475982179de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wallet: {fileID: 68860365}
   _moneyText: {fileID: 2077731911}
 --- !u!1 &209619633
 GameObject:
@@ -1039,7 +1025,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOverArea: {fileID: 1007753507}
   _cubeHandler: {fileID: 579611338}
-  _bonusButtonsScreen: {fileID: 557506834}
   _gameOverScreen: {fileID: 704987334}
   _levelScreen: {fileID: 1309173642}
   _timerScreen: {fileID: 2049904231}
@@ -1100,7 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 939641074}
   _bonusCubeCost: 20
-  _wallet: {fileID: 68860365}
+  _wallet: {fileID: 0}
   _bonusCubeUnit: {fileID: 7437229492838816047, guid: 728f41e2a4dd9bf43abd8a461931eb62, type: 3}
   _cubeSpawner: {fileID: 1148067284}
 --- !u!114 &939641074
@@ -1963,7 +1948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 1420302751}
   _bonusCubeCost: 10
-  _wallet: {fileID: 68860365}
+  _wallet: {fileID: 0}
   _bonusCubeUnit: {fileID: 7437229492838816047, guid: d191d96d686b1e74b84d49d7b2250c43, type: 3}
   _cubeSpawner: {fileID: 1148067284}
 --- !u!1 &1478931958

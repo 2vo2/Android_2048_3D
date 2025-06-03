@@ -1,10 +1,11 @@
 ﻿using System;
+using Interface;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Handlers.Game
 {
-    public class GameScore : MonoBehaviour
+    public class GameScore : MonoBehaviour, IInitializable
     {
         public static GameScore Instance;
 

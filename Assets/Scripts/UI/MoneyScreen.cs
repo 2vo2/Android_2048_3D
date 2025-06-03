@@ -7,17 +7,21 @@ namespace UI
 {
     public class MoneyScreen : MonoBehaviour
     {
-        [SerializeField] private Wallet _wallet;
         [SerializeField] private TMP_Text _moneyText;
+
+        private void Start()
+        {
+            OnMoneyChanged(Wallet.Instance.MoneyValue);
+        }
 
         private void OnEnable()
         {
-            _wallet.OnMoneyChanged += OnMoneyChanged;
+            Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
         }
 
         private void OnDisable()
         {
-            _wallet.OnMoneyChanged -= OnMoneyChanged;
+            Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
         }
 
         private void OnMoneyChanged(int value)
