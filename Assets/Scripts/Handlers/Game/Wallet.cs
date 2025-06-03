@@ -6,7 +6,7 @@ namespace Handlers.Game
     public class Wallet : MonoBehaviour
     {
         private GameScore _gameScore;
-        private int _moneyValue = 1000;
+        private int _moneyValue;
         
         public event Action<int> OnMoneyChanged;
         
@@ -15,11 +15,12 @@ namespace Handlers.Game
         private void Awake()
         {
             _gameScore = GameScore.Instance;
+            _moneyValue = PlayerPrefs.GetInt("Coin", 0);
         }
 
         private void Start()
         {
-            OnScoreThresholdReached();
+            OnScoreThresholdReached(0);
         }
 
         private void OnEnable()
@@ -32,9 +33,10 @@ namespace Handlers.Game
             _gameScore.OnScoreThresholdReached -= OnScoreThresholdReached;
         }
 
-        private void OnScoreThresholdReached()
+        private void OnScoreThresholdReached(int value)
         {
-            _moneyValue++;
+            _moneyValue += value;
+            PlayerPrefs.SetInt("Coin", _moneyValue);
             OnMoneyChanged?.Invoke(_moneyValue);
         }
 
@@ -48,6 +50,7 @@ namespace Handlers.Game
             if (amount < 0) return;
             
             _moneyValue -= amount;
+            PlayerPrefs.SetInt("Coin", _moneyValue);
         }
     }
 }

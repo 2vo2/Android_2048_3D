@@ -9,6 +9,7 @@ namespace Handlers.Game
         public static GameScore Instance;
 
         [SerializeField] private int _scoreThreshold = 10;
+        [SerializeField] private int _moneyForScore = 1;
         
         private int _scoreValue;
         private int _highScoreValue;
@@ -16,11 +17,10 @@ namespace Handlers.Game
         
         public int ScoreValue => _scoreValue;
         public int HighScoreValue => _highScoreValue;
-        public int ScoreThreshold => _nextScoreThreshold;
         
         public event Action<int> OnScoreChanged; 
         public event Action<int> OnHighScoreChanged;
-        public event Action OnScoreThresholdReached;
+        public event Action<int> OnScoreThresholdReached;
 
         public void Initialize()
         {
@@ -45,7 +45,7 @@ namespace Handlers.Game
             if (_scoreValue >= _nextScoreThreshold)
             {
                 _nextScoreThreshold += _scoreThreshold;
-                OnScoreThresholdReached?.Invoke();
+                OnScoreThresholdReached?.Invoke(_moneyForScore);
             }
             
             if (_scoreValue > _highScoreValue)
