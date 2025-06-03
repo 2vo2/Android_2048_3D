@@ -6,7 +6,7 @@ namespace Handlers.Game
     public class Wallet : MonoBehaviour
     {
         private GameScore _gameScore;
-        private int _moneyValue;
+        private int _moneyValue = 1000;
         
         public event Action<int> OnMoneyChanged;
         
@@ -15,6 +15,11 @@ namespace Handlers.Game
         private void Awake()
         {
             _gameScore = GameScore.Instance;
+        }
+
+        private void Start()
+        {
+            OnScoreThresholdReached();
         }
 
         private void OnEnable()

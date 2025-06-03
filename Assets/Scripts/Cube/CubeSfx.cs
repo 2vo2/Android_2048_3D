@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Cube
@@ -32,7 +33,16 @@ namespace Cube
 
         private void PlaySFX(AudioSource sfx)
         {
-            sfx.Play();
+            sfx.transform.SetParent(null);
+            StartCoroutine(WaitSFX(sfx, sfx.time));
+        }
+
+        private IEnumerator WaitSFX(AudioSource sfxPrefab, float duration)
+        {
+            sfxPrefab.Play();
+            yield return new WaitForSeconds(duration);
+            sfxPrefab.transform.SetParent(transform);
+            sfxPrefab.transform.localPosition = Vector3.zero;
         }
     }
 }
