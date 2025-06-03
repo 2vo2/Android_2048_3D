@@ -9,6 +9,7 @@ namespace Handlers.Game
     {
         [SerializeField] private float _timeToLose;
         
+        private CubeUnit _gameOverCube;
         private Coroutine _gameOverCoroutine;
         private float _timer;
         
@@ -21,6 +22,8 @@ namespace Handlers.Game
         {
             if (other.TryGetComponent(out CubeUnit cubeUnit) && !cubeUnit.IsMainCube)
             {
+                _gameOverCube = cubeUnit;
+                
                 if (_gameOverCoroutine == null)
                 {
                     _gameOverCoroutine = StartCoroutine(GameOverCoroutine());
@@ -31,12 +34,13 @@ namespace Handlers.Game
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out CubeUnit cubeUnit) && !cubeUnit.IsMainCube)
+            if (other.TryGetComponent(out CubeUnit cubeUnit) && cubeUnit == _gameOverCube)
             {
                 if (_gameOverCoroutine != null)
                 {
                     StopCoroutine(_gameOverCoroutine);
                     _gameOverCoroutine = null;
+                    _gameOverCube = null;
                     _timer = 0f;
                     OnTimerStopped?.Invoke();
                 }
