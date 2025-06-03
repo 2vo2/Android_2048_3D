@@ -144,13 +144,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68860363}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 940784670}
-  m_Father: {fileID: 382729703}
+  m_Father: {fileID: 1309173641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -532,11 +532,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 557506835}
-  - {fileID: 2086159032}
+  - {fileID: 1309173641}
   - {fileID: 704987333}
-  - {fileID: 2049904230}
-  - {fileID: 68860364}
   m_Father: {fileID: 660150320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -802,7 +799,7 @@ RectTransform:
   m_Children:
   - {fileID: 1420302750}
   - {fileID: 939641072}
-  m_Father: {fileID: 382729703}
+  m_Father: {fileID: 1309173641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1044,7 +1041,7 @@ MonoBehaviour:
   _cubeHandler: {fileID: 579611338}
   _bonusButtonsScreen: {fileID: 557506834}
   _gameOverScreen: {fileID: 704987334}
-  _scoreScreen: {fileID: 2086159035}
+  _levelScreen: {fileID: 1309173642}
   _timerScreen: {fileID: 2049904231}
   _timerText: {fileID: 1107704186}
   _scoreText: {fileID: 2059240836}
@@ -1731,6 +1728,58 @@ MonoBehaviour:
   _cubePrefab: {fileID: 7437229492838816047, guid: 20af07d4eb35e6f46a7ca65c6b6d1e88, type: 3}
   _spawnPoint: {fileID: 2044725118}
   _cubeThrower: {fileID: 253612741}
+--- !u!1 &1309173640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1309173641}
+  - component: {fileID: 1309173642}
+  m_Layer: 5
+  m_Name: LevelScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1309173641
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309173640}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 557506835}
+  - {fileID: 2086159032}
+  - {fileID: 2049904230}
+  - {fileID: 68860364}
+  m_Father: {fileID: 382729703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1309173642
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309173640}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1414693211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,13 +2640,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049904229}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1107704185}
-  m_Father: {fileID: 382729703}
+  m_Father: {fileID: 1309173641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2922,7 +2971,7 @@ RectTransform:
   m_Children:
   - {fileID: 556004748}
   - {fileID: 1478931961}
-  m_Father: {fileID: 382729703}
+  m_Father: {fileID: 1309173641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

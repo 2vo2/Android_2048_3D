@@ -12,12 +12,11 @@ namespace UI
         [Header("General")]
         [SerializeField] private GameOverArea _gameOverArea;
         [SerializeField] private CubeHandler _cubeHandler;
-        [SerializeField] private GameObject _bonusButtonsScreen;
 
 
         [Header("CanvasGroups")]
         [SerializeField] private CanvasGroup _gameOverScreen;
-        [SerializeField] private CanvasGroup _scoreScreen;
+        [SerializeField] private CanvasGroup _levelScreen;
         [SerializeField] private CanvasGroup _timerScreen;
         
         [Header("Texts")]
@@ -47,10 +46,7 @@ namespace UI
             _gameOverArea.gameObject.SetActive(false);
             
             EnableCanvasGroup(_gameOverScreen, 1f, true, true);
-            EnableCanvasGroup(_scoreScreen, 0f, false, false);
-            EnableCanvasGroup(_timerScreen, 0f, false, false);
-            
-            _bonusButtonsScreen.SetActive(false);
+            EnableCanvasGroup(_levelScreen, 0f, false, false);
             
             _scoreText.text = $"SCORE: {GameScore.Instance.ScoreValue}";
             _highScoreText.text = $"HIGHSCORE: {GameScore.Instance.HighScoreValue}";
