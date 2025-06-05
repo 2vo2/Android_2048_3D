@@ -7,7 +7,6 @@ namespace SO
     [CreateAssetMenu(fileName = "New CubeUnit Data", menuName = "CubeUnit Data", order = 0)]
     public class CubeUnitSO : ScriptableObject
     {
-        [SerializeField] private List<Color> _colors;
         [SerializeField] private List<int> _chances;
         [SerializeField] private int _mainCubeLayer;
         [SerializeField] private int _onBoardCubeLayer;
@@ -32,9 +31,13 @@ namespace SO
 
         public Color CubeColor(int cubeNumber)
         {
-            var colorIndex = (int)Mathf.Log(cubeNumber, 2) - 1;
-            
-            return _colors[colorIndex];
+            var n = (int)Mathf.Log(cubeNumber, 2);
+
+            var hue = (n * 47f) % 360f / 360f;
+            var saturation = 0.7f;
+            var valueBrightness = Mathf.Lerp(1f, 0.4f, n / 30f);
+
+            return Color.HSVToRGB(hue, saturation, valueBrightness);
         }
 
         public void SetCubeLayer(CubeUnit cubeUnit, int layer)
