@@ -1,6 +1,5 @@
-﻿using System;
-using Cube.Merger;
-using SO;
+﻿using Cube.Merger;
+using ScriptableObject;
 using UnityEngine;
 
 namespace Cube
@@ -9,7 +8,7 @@ namespace Cube
     public class CubeUnit : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private CubeUnitSO _cubeUnitData;
+        [SerializeField] private CubeUnitScriptableObject _cubeUnitData;
         [SerializeField] private CubeViewer _cubeViewer;
         [SerializeField] private CubeMerger _cubeMerger;
 
@@ -17,7 +16,7 @@ namespace Cube
         private int _cubeNumber;
         
         public Rigidbody Rigidbody => _rigidbody;
-        public CubeUnitSO CubeUnitData => _cubeUnitData;
+        public CubeUnitScriptableObject CubeUnitData => _cubeUnitData;
         public CubeViewer CubeViewer => _cubeViewer;
         public CubeMerger CubeMerger => _cubeMerger;
         public bool IsMainCube => _isMainCube;

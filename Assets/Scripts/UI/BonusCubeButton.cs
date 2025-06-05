@@ -1,5 +1,4 @@
-﻿using System;
-using Cube;
+﻿using Cube;
 using Handlers.Game;
 using UnityEngine;
 

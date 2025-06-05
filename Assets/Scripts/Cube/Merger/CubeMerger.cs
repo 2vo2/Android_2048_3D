@@ -1,7 +1,6 @@
 ﻿using System;
 using Handlers.Game;
 using Interface;
-using UI;
 using UnityEngine;
 
 namespace Cube.Merger

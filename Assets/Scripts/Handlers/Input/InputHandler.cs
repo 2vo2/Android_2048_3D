@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Handlers
+namespace Handlers.Input
 {
     public class InputHandler : MonoBehaviour
     {

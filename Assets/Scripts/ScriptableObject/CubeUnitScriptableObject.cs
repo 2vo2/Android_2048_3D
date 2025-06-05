@@ -2,10 +2,10 @@
 using Cube;
 using UnityEngine;
 
-namespace SO
+namespace ScriptableObject
 {
     [CreateAssetMenu(fileName = "New CubeUnit Data", menuName = "CubeUnit Data", order = 0)]
-    public class CubeUnitSO : ScriptableObject
+    public class CubeUnitScriptableObject : UnityEngine.ScriptableObject
     {
         [SerializeField] private List<int> _chances;
         [SerializeField] private int _mainCubeLayer;

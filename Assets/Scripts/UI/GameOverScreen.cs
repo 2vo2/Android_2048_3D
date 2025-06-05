@@ -1,9 +1,7 @@
-﻿using System;
-using Cube;
+﻿using Cube;
 using Handlers.Game;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI
 {

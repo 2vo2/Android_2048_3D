@@ -1,4 +1,3 @@
-using System;
 using Handlers.Game;
 using TMPro;
 using UnityEngine;
