@@ -4,8 +4,6 @@
     {
         public override void MergeCube(CubeUnit self, CubeUnit other)
         {
-            self.CubeMerger.InvokeCubeMerged(self.CubeNumber * 2);
-            
             EnableMergeCube(self, false);
 
             AddMergeValueToScore(other);
